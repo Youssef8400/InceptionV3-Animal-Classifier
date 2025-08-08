@@ -5,7 +5,7 @@
 ```bash
 pip install -r requirements.txt
 ```
-### Execution : 
+### Execution de App de deploiement : 
 
 ```python
 python deploiement.py
