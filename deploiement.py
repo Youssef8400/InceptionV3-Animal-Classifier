@@ -6,32 +6,26 @@ from keras._tf_keras.keras.models import load_model
 from keras._tf_keras.keras.applications.inception_v3 import preprocess_input
 from keras._tf_keras.keras.preprocessing import image
 
-# === CONFIGURATION ===
 MODEL_PATH = "animal_classifier_inceptionv3.h5"
 IMG_SIZE = (299, 299)
-DISPLAY_SIZE = (200, 200)  # taille fixe d'affichage
+DISPLAY_SIZE = (200, 200) 
 
-# Charger le modèle
 model = load_model(MODEL_PATH)
 
-# 🐾 Classes
 class_labels = [
     'butterfly', 'cat', 'chicken', 'cow', 'dog',
     'elephant', 'horse', 'sheep', 'spider', 'squirrel'
 ]
 
-# === Interface graphique ===
 root = tk.Tk()
 root.title("Prédiction d'Animal 🐾")
 root.geometry("600x303")
 root.resizable(False, False)
 root.configure(bg="white")
 
-# Cadre principal horizontal
 main_frame = tk.Frame(root, bg="white")
 main_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-# ==== Partie gauche (Upload) ====
 left_frame = tk.Frame(main_frame, bg="#f0f4ff", width=200, height=250, highlightthickness=2, highlightbackground="#5c7cfa")
 left_frame.pack(side="left", fill="y", padx=5, pady=5)
 left_frame.pack_propagate(False)
@@ -51,26 +45,21 @@ browse_btn = tk.Button(
 )
 browse_btn.pack(pady=10)
 
-# ==== Partie droite (Image + Résultat) ====
 right_frame = tk.Frame(main_frame, bg="white")
 right_frame.pack(side="right", fill="both", expand=True, padx=5, pady=5)
 
-# Cadre image
 image_frame = tk.Frame(right_frame, bg="#f8f9fa", highlightbackground="#ccc", highlightthickness=1)
 image_frame.pack(pady=10)
 image_panel = tk.Label(image_frame, bg="#f8f9fa", width=DISPLAY_SIZE[0], height=DISPLAY_SIZE[1])
 image_panel.pack()
 
-# Cadre résultat
 result_frame = tk.Frame(right_frame, bg="#e8f5e9", highlightbackground="#2ecc71", highlightthickness=1)
 result_frame.pack(pady=10, fill="x")
 result_label = tk.Label(result_frame, text="Aucune image chargée", font=("Helvetica", 14, "bold"), fg="#2e7d32", bg="#e8f5e9")
 result_label.pack(pady=5)
 
-# Variable chemin image
 last_image_path = None
 
-# ==== Fonctions ====
 def load_image():
     global last_image_path
     file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg *.png *.jpeg")])
